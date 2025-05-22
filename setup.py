@@ -1,4 +1,4 @@
-from distutils.core import setup, Extension
+from setuptools import setup, Extension, find_packages
 import shutil
 import glob
 import os
@@ -10,38 +10,50 @@ try:
 except:
     pass
     
-    
-dlls     = glob.glob(os.path.join('*.dll'))
-openssl  = glob.glob(os.path.join('openssl', '*.*'))
+# Collect DLLs and other files
+dlls = glob.glob(os.path.join('*.dll'))
+openssl = glob.glob(os.path.join('openssl', '*.*'))
 database = glob.glob(os.path.join('database', '*.*'))
 
-
-pyclamav = Extension(
+# Define the extension module
+pyclamav_extension = Extension(
     'pyclamav',
-    sources      = ['pyclamav.c'], 
-    libraries    = ['libclamav', 'python312'],
-    library_dirs = ['.']
+    sources=['pyclamav/src/pyclamav.c'], 
+    libraries=['libclamav', 'python312'],
+    library_dirs=['.'],
+    include_dirs=['.']
 )
 
-# Build : python setup.py build
-# Install : python setup.py install
-# Register : python setup.py register
+# Read the long description from README.md
+with open('README.md', 'r', encoding='utf-8') as f:
+    long_description = f.read()
 
-#  platform = 'Unix',
-#  download_url = 'https://github.com/donfucius/pyclamav/tree/mypyclamav',
-
-
-setup (
-    name             = 'pyclamav',
-    version          = '0.0.3',
-    author           = 'ELIZALDE Elodie',
-    author_email     = 'cyberax@protonmail.com',
-    license          ='GPL',
-    keywords         ="python, clamav, antivirus, scanner, virus, libclamav",
-    url              = 'https://github.com/donfucius/pyclamav',
-    include_dirs     = ['.'],
-    data_files       = [('', dlls), ('database', database), ('openssl', openssl)],
-    description      = 'This is a python binding to the C libclamav library (from the Clamav project - http://www.clamav.net) based on http://xael.org/norman/python/pyclamav/. It can be used to easily allow a Python script to scan a file against known viruses.',
-    long_description = 'This is a python binding to the C libclamav library (from the Clamav project - http://www.clamav.net) based on http://xael.org/norman/python/pyclamav/. It can be used to easily allow a Python script to scan a file against known viruses.',
-    ext_modules      = [pyclamav]
+setup(
+    name='pyclamav',
+    version='0.0.3',
+    author='ELIZALDE Elodie',
+    author_email='cyberax@protonmail.com',
+    license='GPL',
+    keywords="python, clamav, antivirus, scanner, virus, libclamav",
+    url='https://github.com/cyberax64/pyclamav',
+    description='Python binding for the ClamAV antivirus engine',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    ext_modules=[pyclamav_extension],
+    packages=find_packages(),
+    data_files=[
+        ('', dlls), 
+        ('database', database), 
+        ('openssl', openssl)
+    ],
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: GNU General Public License (GPL)',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.12',
+        'Topic :: Security',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+    ],
+    python_requires='>=3.9',
 )

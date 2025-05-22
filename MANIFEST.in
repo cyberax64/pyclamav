@@ -1,0 +1,13 @@
+include LICENSE
+include README.md
+include *.dll
+include *.lib
+include *.exe
+include *.h
+recursive-include openssl *
+recursive-include include *
+recursive-include database *
+recursive-include conf_examples *
+recursive-include pyclamav/docs *
+recursive-include pyclamav/examples *
+recursive-include pyclamav/tests *

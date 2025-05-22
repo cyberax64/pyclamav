@@ -6,9 +6,27 @@ Python binding for the ClamAV antivirus engine.
 
 This module provides a Python interface to the ClamAV virus scanning engine. It allows you to easily integrate virus scanning capabilities into your Python applications.
 
+## Project Structure
+
+```
+pyclamav/
+├── pyclamav/           # Python package
+│   ├── src/            # C extension source code
+│   ├── examples/       # Example scripts
+│   ├── tests/          # Test suite
+│   └── docs/           # Documentation
+├── database/           # ClamAV virus database
+├── include/            # ClamAV header files
+├── openssl/            # OpenSSL header files
+├── conf_examples/      # ClamAV configuration examples
+├── setup.py            # Installation script
+├── LICENSE             # License information
+└── README.md           # This file
+```
+
 ## Requirements
 
-- Python 3.12
+- Python 3.9 or newer (Python 3.12 recommended)
 - ClamAV (Version: 0.105.0 or newer)
 - ClamAV virus database
 
@@ -48,7 +66,19 @@ else:
     print("No virus found")
 ```
 
-See `example.py` for a more complete example including multi-threaded scanning.
+See `pyclamav/examples/example.py` for a more complete example including multi-threaded scanning.
+
+## Documentation
+
+Detailed API documentation is available in the `pyclamav/docs/` directory.
+
+## Testing
+
+Run the test suite with:
+
+```bash
+python -m unittest discover -s pyclamav/tests
+```
 
 ## License
 
