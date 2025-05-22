@@ -1,17 +1,55 @@
-pyclamav
-========
+# PyClamAV
 
-Portage du moteur Anti-Virus ClamAV (Version: 0.105.0-rc) sur Python 3.9
+Python binding for the ClamAV antivirus engine.
 
-Exporté la version compiler dans le dossier Lib\site-packages de votre Python
+## Description
 
+This module provides a Python interface to the ClamAV virus scanning engine. It allows you to easily integrate virus scanning capabilities into your Python applications.
 
-OU
+## Requirements
 
-Compiler depuis les source via:
+- Python 3.12
+- ClamAV (Version: 0.105.0 or newer)
+- ClamAV virus database
 
+## Installation
+
+### Option 1: Install from pre-compiled package
+
+Copy the compiled version to your Python's Lib\site-packages directory.
+
+### Option 2: Compile from source
+
+```bash
 python setup.py install
-(pensé a téléchargé la base de donnée du coups dans le dossier database)
+```
 
+**Note:** Make sure to download the virus database into the 'database' folder before using.
 
-aprés j'ai fourni un petit example en python pour scanner des fichier :)
+## Usage
+
+```python
+import pyclamav
+
+# Load the virus database
+pyclamav.load_database('path/to/database')
+
+# Get ClamAV version
+print("ClamAV Version:", pyclamav.get_version())
+
+# Get number of virus signatures
+print("Number of signatures:", pyclamav.get_numsig())
+
+# Scan a file
+result, virus_name = pyclamav.scanfile('file_to_scan.exe')
+if result == 1:
+    print(f"Virus detected: {virus_name}")
+else:
+    print("No virus found")
+```
+
+See `example.py` for a more complete example including multi-threaded scanning.
+
+## License
+
+GPL

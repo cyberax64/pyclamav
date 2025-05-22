@@ -154,8 +154,6 @@ static PyObject *pyclamav_scanfile(PyObject *self, PyObject *args) {
 	options.parse |= ~0;
 	options.general |= CL_SCAN_GENERAL_HEURISTICS;
 	
-	const int eScanResult = cl_scanfile(file_to_scan, &virname, 0, engine, &options);
-	
 	ret = cl_scanfile(file_to_scan, &virname, &size, engine, &options);
 
 	switch (ret) {
@@ -239,7 +237,7 @@ static PyMethodDef pyclamav_methods[] = {
 static struct PyModuleDef pyclamav_definition = { 
     PyModuleDef_HEAD_INIT,
     "pyclamav",
-    "A Python module that prints 'pyclamav world' from C code.",
+    "A Python module for ClamAV virus scanning integration.",
     -1, 
     pyclamav_methods
 };

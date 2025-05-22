@@ -19,7 +19,7 @@ database = glob.glob(os.path.join('database', '*.*'))
 pyclamav = Extension(
     'pyclamav',
     sources      = ['pyclamav.c'], 
-    libraries    = ['libclamav', 'python39'],
+    libraries    = ['libclamav', 'python312'],
     library_dirs = ['.']
 )
 
@@ -33,7 +33,7 @@ pyclamav = Extension(
 
 setup (
     name             = 'pyclamav',
-    version          = '0.0.2',
+    version          = '0.0.3',
     author           = 'ELIZALDE Elodie',
     author_email     = 'cyberax@protonmail.com',
     license          ='GPL',
